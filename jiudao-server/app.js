@@ -3,6 +3,7 @@ const Koa = require('koa');
 const app = new Koa(); // 实例化
 
 app.use(ctx => {
+  console.log(ctx.path);
   ctx.body = { code: 0, message: '启动' };
 });
 
