@@ -1,11 +1,9 @@
 const Koa = require('koa');
+const InitManager = require('./core/init');
 
 const app = new Koa(); // 实例化
 
-app.use(ctx => {
-  console.log(ctx.path);
-  ctx.body = { code: 0, message: '启动' };
-});
+InitManager.initCore(app);
 
 const port = 3000;
 app.listen(port, () => {
