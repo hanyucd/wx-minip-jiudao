@@ -5,13 +5,15 @@ router.get('/:name', (ctx, next) => {
   console.log('params:', ctx.params);
   console.log('query:', ctx.query);
 
+  console.log(global);
+
   ctx.body = {
     classic: 'classic get',
     params: ctx.params,
     query: ctx.query
   };
 
-  // throw new Error('API Error');
+  throw new global.errors.NotFound();
 });
 
 router.post('/post', (ctx, next) => {
