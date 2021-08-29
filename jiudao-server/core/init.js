@@ -31,7 +31,7 @@ class InitManager {
   }
 
   /**
-   * 加载配置文件
+   * 全局加载配置文件 挂载到 global 
    */
   static loadConfig(path = '') {
     const configPath = path || process.cwd() + '/config/index.js';
@@ -40,7 +40,7 @@ class InitManager {
   }
 
   /**
-   * global 全局加载异常处理方法
+   * 全局加载异常处理方法 挂载到 global 
    */
   static loadHttpException() {
     global.errors = httpException;
