@@ -23,7 +23,7 @@ User.init({
     type: DataTypes.STRING,
     comment: '密码'
   },
-  openid: {
+  open_id: {
     type: DataTypes.STRING(64),
     unique: true, //指定唯一
     comment: '微信小程序 openid'
@@ -31,7 +31,7 @@ User.init({
 }, {
   sequelize, // 需要传递连接实例 (必传)
   modelName: 'user', // 模型名称
-  initialAutoIncrement: 1000 // 自增初始值
+  initialAutoIncrement: 10000 // 自增初始值
 });
 
 module.exports = User;
