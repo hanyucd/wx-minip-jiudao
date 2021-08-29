@@ -18,7 +18,7 @@
  *    连接数据库时,账号密码输错了
  */
 
-const { HttpException } = require('../core/httpException');
+const { HttpException } = require('../core/http-exception');
   
 /**
  * 捕获错误
@@ -35,13 +35,17 @@ const catchError = async (ctx, next) => {
       ctx.body = {
         message: error.message,
         errorCode: error.errorCode,
-        request: `${ctx.method} ${ctx.path}`
+        request: `${ ctx.method } ${ ctx.path }`
       };
       ctx.status = error.status; // 返回 http 状态码
     } else {
-      ctx.body = '服务器出错';
+      ctx.body = {
+        message: '未知错误',
+        errorCode: 9999,
+        request: `${ ctx.method } ${ ctx.path }`
+      };
+      ctx.status = 500;
     }
-    
   }
 };
 
