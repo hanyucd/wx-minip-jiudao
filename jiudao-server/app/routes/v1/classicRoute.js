@@ -2,7 +2,7 @@ const Router = require('@koa/router');
 const { PositiveIntegerValidator } = require('../../validator/validator');
 const router = new Router({ prefix: '/v1/classic' });
 
-router.get('/:id', async(ctx, next) => {
+router.get('/:id', async (ctx, next) => {
   console.log('params:', ctx.params);
   console.log('query:', ctx.query);
 

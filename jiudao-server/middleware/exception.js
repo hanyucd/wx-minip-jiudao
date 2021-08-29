@@ -30,6 +30,11 @@ const catchError = async (ctx, next) => {
     console.log(error);
     // 抛出异常条件 判断是否是 HttpException 实例
     const isHttpException = error instanceof HttpException;
+    const isDev = global.config.env === 'dev';
+
+    if (isDev && !isHttpException) {
+      throw error;
+    }
 
     if (isHttpException) {
       ctx.body = {

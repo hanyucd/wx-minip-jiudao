@@ -11,7 +11,7 @@ class InitManager {
     this.app = app;
     this.loadRouters();
     this.loadHttpException();
-    // InitManager.loadConfig();
+    this.loadConfig();
   }
   
   /**
@@ -28,6 +28,15 @@ class InitManager {
         InitManager.app.use(obj.routes());
       }
     }
+  }
+
+  /**
+   * 加载配置文件
+   */
+  static loadConfig(path = '') {
+    const configPath = path || process.cwd() + '/config/index.js';
+    const config = require(configPath);
+    global.config = config;
   }
 
   /**

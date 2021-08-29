@@ -18,18 +18,9 @@ class HttpException extends Error {
  * @extends {HttpException}
  */
 
-// class ParameterException extends HttpException {
-//   constructor(message, errorCode) {
-//     super(message = '参数错误', errorCode = 10001);
-//   }
-// }
-
 class ParameterException extends HttpException {
-  constructor(msg, errorCode) {
-    super();
-    this.status = 400;
-    this.msg = msg || '参数错误';
-    this.errorCode = errorCode || 10000;
+  constructor(message, errorCode) {
+    super(message = '参数错误', errorCode = 10001);
   }
 }
 
