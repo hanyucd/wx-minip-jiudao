@@ -16,7 +16,11 @@ router.post('/register', async (ctx, next) => {
     nickname: v.get('body.nickname')
   };
 
-  User.create(user); // 注册
+  const result = await User.create(user); // 注册
+  console.log('创建结果: ', result.id);
+  console.log('创建结果 JSON 化: ', result.toJSON());
+
+  ctx.body = { ...result.toJSON() };
 });
 
 module.exports = router;

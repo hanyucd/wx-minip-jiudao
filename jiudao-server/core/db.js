@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const { Sequelize } = require('sequelize');
 const { database } = require('../config');
 
 const sequelize = new Sequelize(
@@ -6,9 +6,9 @@ const sequelize = new Sequelize(
   database.user,
   database.password,
   {
-    dialect: 'mysql',
     host: database.host,
     port: database.port,
+    dialect: 'mysql', // 连接的数据库类型
     logging: true, // 建议开启, 方便对照生成的 sql 语句
     timezone: '+08:00', // 时区, 不设置会与北京相差 8 小时
     // 定义模型默认选项

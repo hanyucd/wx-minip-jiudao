@@ -1,4 +1,5 @@
 const { Sequelize, Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcryptjs');
 const sequelize = require('../../core/db');
 
 class User extends Model {}
@@ -21,6 +22,22 @@ User.init({
   },
   password: {
     type: DataTypes.STRING,
+    // 获取器
+    get() {
+      const _password = this.getDataValue('password');
+      return _password;
+    },
+    // 设置器
+    set(value) {
+      /**
+       * 密码加密 盐
+       * 10的意思: 指的是生成盐的成本,越大,花费成本越高,密码安全性越高,一般取默认值
+       * 明文,相同密码加密之后也要不同,防止彩虹攻击
+       */
+      const salt = bcrypt.genSaltSync(10);
+      const psw = bcrypt.hashSync(value, salt); // 加密
+      this.setDataValue('password', psw);
+    },
     comment: '密码'
   },
   open_id: {
