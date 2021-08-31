@@ -1,8 +1,28 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const sequelize = require('../../core/db');
 
-class User extends Model {}
+class User extends Model {
+  /**
+   * 核对用户邮箱密码
+   * @param {*} email 
+   * @param {*} plainPassword
+   * @memberof User
+   */
+  static async verifyEmailPassword(email, plainPassword) {
+    const user = await User.findOne({
+      where: { email }
+    });
+    // console.log('user:', user.toJSON());
+
+    if (!user) throw new global.errors.AuthFailed('用户不存在');
+    // 密码验证
+    const correct = bcrypt.compareSync(plainPassword, user.password);
+    console.log('密码校验:', correct);
+    if (!correct) throw new global.errors.AuthFailed('密码不正确');
+    return user;
+  }
+}
 
 User.init({
   id: {
@@ -17,7 +37,8 @@ User.init({
   },
   email: {
     type: DataTypes.STRING,
-    unique: true,
+    // unique: true,
+    unique: 'column',
     comment: '邮箱'
   },
   password: {
@@ -42,7 +63,8 @@ User.init({
   },
   open_id: {
     type: DataTypes.STRING(64),
-    unique: true, //指定唯一
+    // unique: true, //指定唯一
+    unique: 'column',
     comment: '微信小程序 openid'
   }
 }, {

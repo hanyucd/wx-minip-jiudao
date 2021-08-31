@@ -33,16 +33,16 @@ const findMembers = function(instance, { prefix, specifiedType, filter }) {
 
 /**
  * 生成jwt Token
- *
  * @param {*} uid 用户id
  * @param {*} scope 用户权限
  * @returns
  */
-const generateToken = function(uid, scope) {
+const generateToken = function (uid, scope) {
   const secretKey = config.security.secretKey;
   const expiresIn = config.security.expiresIn;
-  const token = jwt.sign({ uid, scope }, secretKey, { expiresIn });
-  return token;
+  const _token = jwt.sign({ uid, scope }, secretKey, { expiresIn });
+  // console.log('token:', _token);
+  return _token;
 };
 
 module.exports = {

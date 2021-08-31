@@ -9,7 +9,7 @@ const app = new Koa(); // 实例化
 
 app.use(bodyParser());
 app.use(catchError); // 全局捕获异常
-InitManager.initCore(app);
+InitManager.initCore(app); // 初始化 app, router, 全局挂载配置 ...
 
 const port = 3000; // 端口号
 app.listen(port, () => {

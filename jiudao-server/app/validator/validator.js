@@ -1,4 +1,5 @@
 const { LinValidator, Rule } = require('../../core/lin-validator');
+const { LoginType, ArtType } = require('../lib/enum');
 const User = require('../model/userModel');
 
 class PositiveIntegerValidator extends LinValidator {
@@ -59,7 +60,49 @@ class RegisterValidator extends LinValidator {
   }
 }
 
+/**
+ * 登录校验
+ *
+ * @class TokenValidator
+ * @extends {LinValidator}
+ */
+class TokenValidator extends LinValidator {
+  constructor() {
+    super();
+    // 账号
+    this.account = [
+      new Rule('isLength', '不符合账号规则', { min: 4, max: 32 })
+    ];
+    // 密码
+    this.secret = [
+      /**
+       * 是必须要传入的吗
+       * web 账号+密码
+       * 登录 多元化 小程序登录不需要校验密码
+       * 微信打开小程序 已经验证了合法用户了
+       * web account + secret
+       * 小程序 account
+       * 手机号登录
+       * 1. 可以为空,可以不传
+       * 2. 空 不为空
+       */
+      new Rule('isOptional'),
+      new Rule('isLength', '至少6个字符', { min: 6, max: 128 })
+    ];
+    // 验证登录方式 type JS 枚举
+  }
+  validateLoginType(vals) {
+    if (!vals.body.type) {
+      throw new Error('type是必传参数');
+    }
+    if (!LoginType.isThisType(Number(vals.body.type))) {
+      throw new Error('type参数不合法');
+    }
+  }
+}
+
 module.exports = {
   PositiveIntegerValidator,
-  RegisterValidator
+  RegisterValidator,
+  TokenValidator
 };

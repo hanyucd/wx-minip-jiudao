@@ -20,13 +20,4 @@ router.get('/:id', async (ctx, next) => {
   // throw new global.errors.NotFound();
 });
 
-router.post('/post', (ctx, next) => {
-
-  console.log(ctx.request.body);
-  
-  ctx.body = {
-    classic: 'classic post',
-  };
-});
-
 module.exports = router;

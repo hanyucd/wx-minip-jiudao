@@ -30,8 +30,22 @@ class NotFound extends HttpException {
   }
 }
 
+class Success extends HttpException {
+  constructor(message, errorCode, status) {
+    super(message = message || '成功', errorCode = 0, status = 201);
+  }
+}
+
+class AuthFailed extends HttpException {
+  constructor(message, errorCode, status) {
+    super(message = message || '授权失败', errorCode = 10004, status = 401);
+  }
+}
+
 module.exports = {
   HttpException,
   ParameterException,
-  NotFound
+  NotFound,
+  Success,
+  AuthFailed
 };
