@@ -3,6 +3,7 @@ const { LoginType } = require('../../lib/enum');
 const User = require('../../model/userModel');
 const { TokenValidator } = require('../../validator/validator');
 const { generateToken } = require('../../../core/util');
+const Auth = require('../../../middleware/auth');
 const router = new Router({ prefix: '/v1/token' });
 
 /**
@@ -55,7 +56,7 @@ router.post('/', async (ctx, next) => {
 const _emailLogin = async (account, secret) => {
   const user = await User.verifyEmailPassword(account, secret);
   // console.log(user.id);
-  const _token = generateToken(user.id, 2);
+  const _token = generateToken(user.id, Auth.USER);
   return _token;
 };
 

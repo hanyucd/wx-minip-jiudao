@@ -4,12 +4,11 @@ const { PositiveIntegerValidator } = require('../../validator/validator');
 const router = new Router({ prefix: '/v1/classic' });
 
 router.get('/:id', new Auth().m, async (ctx, next) => {
-  console.log('params:', ctx.params);
-  console.log('query:', ctx.query);
+  // console.log('params:', ctx.params);
+  // console.log('query:', ctx.query);
+  // console.log('auth:', ctx.auth);
 
   const v = await new PositiveIntegerValidator().validate(ctx);
-
-  console.log('v', v);
 
   ctx.body = {
     classic: 'classic get',
