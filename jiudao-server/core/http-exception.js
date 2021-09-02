@@ -38,7 +38,7 @@ class Success extends HttpException {
 
 class AuthFailed extends HttpException {
   constructor(message, errorCode, status) {
-    super(message = message || '授权失败', errorCode = 10004, status = 401);
+    super(message = message || '授权失败', errorCode = errorCode || 10004, status = 401);
   }
 }
 

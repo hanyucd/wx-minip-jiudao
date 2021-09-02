@@ -22,6 +22,27 @@ class User extends Model {
     if (!correct) throw new global.errors.AuthFailed('密码不正确');
     return user;
   }
+
+  /**
+   * 根据 openid 查询
+   * @param {*} openid
+   */
+  static async getUserByOpenid(openid) {
+    const user = await User.findOne({
+      where: { open_id: openid }
+    });
+    return user;
+  }
+
+  /**
+   * 根据 openid 注册
+   * @param {*} openid
+   */
+  static async registerByOpenid(openid) {
+    return await User.create({
+      open_id: openid
+    });
+  }
 }
 
 User.init({

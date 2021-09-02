@@ -65,10 +65,8 @@ router.post('/', async (ctx, next) => {
 });
 
 /**
- * 
  * email登录
  * 普通用户
- *
  * @param {*} account 账户
  * @param {*} secret 密码
  */

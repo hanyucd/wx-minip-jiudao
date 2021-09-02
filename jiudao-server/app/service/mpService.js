@@ -1,5 +1,8 @@
 const util = require('util');
 const axios = require('axios');
+const User = require('../model/userModel');
+const { generateToken } = require('../../core/util');
+const Auth = require('../../middleware/auth');
 
 class MPManager {
   /**
@@ -24,9 +27,10 @@ class MPManager {
       global.config.mp.appsecret,
       code
     );
+    console.log('登录url:', sessionUrl);
 
     const result = await axios.get(sessionUrl);
-    console.log('mp登录:', result);
+    console.log('mp登录:', result.data);
 
     if (result.status !== 200) {
       throw new global.errors.AuthFailed('openid 获取失败');
@@ -35,8 +39,28 @@ class MPManager {
     const errcode = result.data.errcode;
     const errmsg = result.data.errmsg;
     if (errcode) {
-      throw new global.errs.AuthFailed('openid获取失败' + errmsg, errcode);
+      throw new global.errors.AuthFailed('openid获取失败 ' + errmsg, errcode);
     }
+
+    /**
+     * 5. 接收微信服务返回的openid
+     * 为用户建立档案 将数据写入user表,同时生成一个uid编号
+     * 不建议使用openid作为uid的编号,
+     * (1)openid比较长,作为主键查询效率比较低
+     * (2)openid实际上是比较机密的数据,如果在小程序和服务端进行传递容易泄露
+     * 
+     * 6. 考虑token失效的情况
+     * 如果token失效,再次登录传入code,就会再次走codeToToken的流程
+     * 我们会再次拿到openid,我们需要查询数据库是否有此openid,
+     * (1)如果有同样的openid则不再保存数据库
+     * (2)如果没有存在则创建新的user档案
+     */
+    let user = await User.getUserByOpenid(result.data.openid);
+    if (!user) {
+      user = await User.registerByOpenid(result.data.openid);
+    }
+
+    return generateToken(user.id, Auth.USER);
   }
 }
 
