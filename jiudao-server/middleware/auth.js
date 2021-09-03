@@ -43,6 +43,20 @@ class Auth {
       await next();
     };
   }
+
+  /**
+   * 验证令牌是否有效
+   */
+  static verifyToken(token) {
+    try {
+      jwt.verify(token, global.config.security.secretKey);
+      console.log('验证 token:', token);
+      
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
 
 module.exports = Auth;

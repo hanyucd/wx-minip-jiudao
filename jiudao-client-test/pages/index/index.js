@@ -44,13 +44,31 @@ Page({
             success: res => {
               console.log(res)
               const code = res.statusCode.toString();
+              console.log(code)
               // 字符串以2开头的
-              // if (code.startsWith('2')) {
-              //   wx.setStorageSync('token',res.data.token)
-              //   console.log(wx.getStorageSync('token'))
-              // }
+              if (code.startsWith('2')) {
+                wx.setStorageSync('token', res.data.token);
+                console.log(wx.getStorageSync('token'));
+              }
             }
           });
+        }
+      }
+    });
+  },
+  onVerifyToken() {
+    wx.request({
+      url: 'http://localhost:3000/v1/token/verify',
+      method: 'POST',
+      data: {
+        token: wx.getStorageSync('token')
+      },
+      success: res => {
+        console.log(res);
+        const code = res.statusCode.toString();
+        // 字符串以2开头的
+        if (code.startsWith('2')) {
+          console.log(res.data)
         }
       }
     })

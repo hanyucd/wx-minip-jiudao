@@ -1,4 +1,6 @@
 <!--index.wxml-->
-<view class="container">
+<view>
   <l-button type="default" shape="semicircle" size="long" bind:lintap="onGetToken">默认按钮</l-button>
+  <view style="height: 40rpx;" />
+  <l-button type="default" shape="semicircle" size="long" bind:lintap="onVerifyToken">验证按钮</l-button>
 </view>

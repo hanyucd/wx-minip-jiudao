@@ -1,7 +1,7 @@
 const Router = require('@koa/router');
 const { LoginType } = require('../../lib/enum');
 const User = require('../../model/userModel');
-const { TokenValidator } = require('../../validator/validator');
+const { TokenValidator, NotEmptyValidator } = require('../../validator/validator');
 const { generateToken } = require('../../../core/util');
 const Auth = require('../../../middleware/auth');
 const MPManager = require('../../service/mpService');
@@ -62,6 +62,16 @@ router.post('/', async (ctx, next) => {
   }
   
   ctx.body = { token };
+});
+
+/**
+ * 验证令牌是否有效
+ */
+router.post('/verify', async (ctx, next) => {
+  const v = await new NotEmptyValidator().validate(ctx);
+
+  const result = await Auth.verifyToken(v.get('body.token'));
+  ctx.body = { is_valid: result };
 });
 
 /**
