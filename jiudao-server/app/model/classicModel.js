@@ -17,7 +17,7 @@ const sequelize = require('../../core/db');
 // 通用字段
 const classicFields = {
   title: { type: DataTypes.STRING },
-  type: { type: DataTypes.TINYINT },
+  type: { type: DataTypes.INTEGER },
   image: { type: DataTypes.STRING },
   content: { type: DataTypes.STRING },
   pubdate: { type: DataTypes.DATEONLY },

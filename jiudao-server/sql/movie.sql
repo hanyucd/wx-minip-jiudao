@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `movie`;
 CREATE TABLE `movie` (
-  `created_at` datetime DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
   `status` smallint(6) DEFAULT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `image` varchar(64) DEFAULT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE `movie` (
   `fav_nums` smallint(6) DEFAULT NULL,
   `title` varchar(50) DEFAULT NULL,
   `type` int(11) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT;
 

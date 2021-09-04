@@ -62,7 +62,6 @@ Page({
         Authorization: _encode()
       },
       success: res => {
-        console.log(res);
         const code = res.statusCode.toString();
         // 字符串以2开头的
         if (code.startsWith('2')) {

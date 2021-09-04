@@ -1,6 +1,7 @@
 const Router = require('@koa/router');
 const Auth = require('../../../middleware/auth');
 const Flow = require('../../model/flowModel');
+const Art = require('../../service/artService');
 const { PositiveIntegerValidator } = require('../../validator/validator');
 const router = new Router({ prefix: '/v1/classic' });
 
@@ -15,10 +16,13 @@ router.get('/latest', new Auth().m, async (ctx, next) => {
       ['index', 'DESC']
     ]
   });
+  // console.log('flow: ', flow.toJSON());
 
-  console.log('flow: ', flow);
+  const art = await Art.getData(flow.artId, flow.type);
+  art.setDataValue('flowIndex', flow.index);
+  // console.log('art: ', art);
 
-  ctx.body = flow;
+  ctx.body = art;
 });
 
 /**
