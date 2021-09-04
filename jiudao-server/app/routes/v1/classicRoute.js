@@ -1,8 +1,29 @@
 const Router = require('@koa/router');
 const Auth = require('../../../middleware/auth');
+const Flow = require('../../model/flowModel');
 const { PositiveIntegerValidator } = require('../../validator/validator');
 const router = new Router({ prefix: '/v1/classic' });
 
+/**
+ * 查询最新一期期刊
+ * 最新一期就是index最大的那个
+ * note: 排序
+ */
+router.get('/latest', new Auth().m, async (ctx, next) => {
+  const flow = await Flow.findOne({
+    order: [
+      ['index', 'DESC']
+    ]
+  });
+
+  console.log('flow: ', flow);
+
+  ctx.body = flow;
+});
+
+/**
+ * 测试路由
+ */
 router.get('/:id', new Auth().m, async (ctx, next) => {
   // console.log('params:', ctx.params);
   // console.log('query:', ctx.query);

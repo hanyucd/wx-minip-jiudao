@@ -17,7 +17,7 @@ class Auth {
       const userToken = basicAuth(ctx.req);
 
       let errMsg = 'token不合法';
-      // console.log(userToken);
+      console.log(userToken);
       if (!userToken || !userToken.name) {
         throw new global.errors.Forbbiden(errMsg);
       }

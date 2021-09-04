@@ -1,35 +1,16 @@
-// index.js
 const app = getApp();
 
+import { Base64 } from 'js-base64';
+
+const _encode = () => {
+  // base_auth基本形式:
+  const token = wx.getStorageSync('token'); // 我们只有token,所以吧token当做account,密码不用写
+  const base64 = Base64.encode(token + ':'); // base64对token加密
+  return 'Basic ' + base64;
+};
+
 Page({
-  data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    canIUseGetUserProfile: false,
-    canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName') // 如需尝试获取用户信息可改为false
-  },
-  onLoad() {
-    if (wx.getUserProfile) {
-      this.setData({
-        canIUseGetUserProfile: true
-      })
-    }
-  },
-  getUserProfile(e) {
-    // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
-    wx.getUserProfile({
-      desc: '展示用户信息', // 声明获取用户个人信息后的用途，后续会展示在弹窗中，请谨慎填写
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    })
-  },
+  data: {},
   onGetToken() {
     wx.login({
       success: res => {
@@ -71,6 +52,23 @@ Page({
           console.log(res.data)
         }
       }
-    })
+    });
+  },
+  onGetLatest() {
+    wx.request({
+      url: 'http://localhost:3000/v1/classic/latest',
+      method: 'GET',
+      header: {
+        Authorization: _encode()
+      },
+      success: res => {
+        console.log(res);
+        const code = res.statusCode.toString();
+        // 字符串以2开头的
+        if (code.startsWith('2')) {
+          console.log(res.data)
+        }
+      }
+    });
   }
 })
