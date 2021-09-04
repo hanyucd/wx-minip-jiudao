@@ -69,5 +69,26 @@ Page({
         }
       }
     });
+  },
+  onLike() {
+    
+    wx.request({
+      url: 'http://localhost:3000/v1/like',
+      method: 'POST',
+      header: {
+        Authorization: _encode()
+      },
+      data: {
+        art_id: 1,
+        type: 100,
+      },
+      success: res => {
+        const code = res.statusCode.toString();
+        // 字符串以2开头的
+        if (code.startsWith('2')) {
+          console.log(res.data)
+        }
+      }
+    });
   }
 })

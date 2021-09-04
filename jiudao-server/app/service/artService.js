@@ -9,7 +9,7 @@ class Art {
   }
 
   static async getData(art_id, type) {
-    let arts = [];
+    let art = [];
     const finder = {
       where: {
         id: art_id
@@ -18,20 +18,20 @@ class Art {
 
     switch (type) {
       case 100:
-        arts = Movie.findOne(finder);
+        art = await Movie.findOne(finder);
         break;
       case 200:
-        
+        art = await Music.findOne(finder);
         break;
       case 300:
-        
+        art = await Sentence.findOne(finder);
         break;
     
       default:
         break;
     }
 
-    return arts;
+    return art;
   }
 }
 
