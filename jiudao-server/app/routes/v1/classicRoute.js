@@ -16,8 +16,6 @@ router.get('/:id', new Auth().m, async (ctx, next) => {
     query: ctx.query,
     id: v.get('path.id')
   };
-
-  // throw new global.errors.NotFound();
 });
 
 module.exports = router;

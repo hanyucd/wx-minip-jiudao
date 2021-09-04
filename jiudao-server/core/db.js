@@ -17,7 +17,7 @@ const sequelize = new Sequelize(
       timestamps: true, // 模型添加 createdAt 和 updatedAt 两个时间戳字段
       createdAt: 'create_time', // create_time 代替 createdAt 列的默认名
       updatedAt: 'update_time', // update_time 代替 updatedAt 列的默认名
-      // underscored: true, // 转换列名的驼峰命名规则为下划线命令规则
+      underscored: true, // 转换列名的驼峰命名规则为下划线命令规则
     }
   }
 );
