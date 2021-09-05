@@ -56,6 +56,22 @@ class Favor extends Model {
     //不能在数据库中使用for查询，因为for查询不可控，只能用in查询，把方法写到Art中去
     return await Art.getList(arts);
   }
+
+  static async getBookFavor(uid, bookID) {
+    const favorNums = await Favor.count({
+      where: {
+        artId: bookID, type: 400
+      }
+    });
+    const myFavor = await Favor.findOne({
+      where: {
+        artId: bookID, uid, type: 400
+      }
+    });
+    return {
+      fav_nums: favorNums, like_status: myFavor ? true : false
+    };
+  }
 }
 
 Favor.init({

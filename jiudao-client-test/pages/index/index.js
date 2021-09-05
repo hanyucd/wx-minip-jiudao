@@ -114,9 +114,77 @@ Page({
       },
     })
   },
-  onGetBookDetail() {
+  onBookSearchonGetBookDetail() {
     wx.request({
       url: 'http://localhost:3000/v1/book/1120/detail',
+      method: 'GET',
+      header: {
+        Authorization: _encode()
+      },
+      success: res => {
+        console.log(res.data)
+      },
+    })
+  },
+  onBookSearch() {
+    wx.request({
+      url: 'http://localhost:3000/v1/book/search',
+      method: 'GET',
+      data: {
+        q: '东野圭吾',
+        count: 10,
+      },
+      header: {
+        Authorization: _encode()
+      },
+      success: res => {
+        console.log(res.data)
+      },
+    })
+  },
+  onGetMyFavorsBookCount() {
+    wx.request({
+      url: 'http://localhost:3000/v1/book/favor/count',
+      method: 'GET',
+      header: {
+        Authorization: _encode()
+      },
+      success: res => {
+        console.log(res.data)
+      },
+    })
+  },
+  onGetBookFavor() {
+    wx.request({
+      url: 'http://localhost:3000/v1/book/65/favor',
+      method: 'GET',
+      header: {
+        Authorization: _encode()
+      },
+      success: res => {
+        console.log(res.data)
+      },
+    })
+  },
+  onAddShortComment() {
+    wx.request({
+      url: 'http://localhost:3000/v1/book/add/short_comment',
+      method: 'POST',
+      data: {
+        content: '春风十里',
+        book_id: 65
+      },
+      header: {
+        Authorization: _encode()
+      },
+      success: res => {
+        console.log(res.data)
+      },
+    })
+  },
+  onGetComments() {
+    wx.request({
+      url: 'http://localhost:3000/v1/book/65/short_comment',
       method: 'GET',
       header: {
         Authorization: _encode()
