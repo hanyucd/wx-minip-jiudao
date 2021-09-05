@@ -102,4 +102,16 @@ Page({
       },
     })
   },
+  onGetHotBookList() {
+    wx.request({
+      url: 'http://localhost:3000/v1/book/hot_list',
+      method: 'GET',
+      header: {
+        Authorization: _encode()
+      },
+      success: res => {
+        console.log(res.data)
+      },
+    })
+  },
 })
