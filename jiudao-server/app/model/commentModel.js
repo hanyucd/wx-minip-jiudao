@@ -25,6 +25,10 @@ class Comment extends Model {
     });
     return bookcomment;
   }
+
+  // toJSON() {
+  //   return {};
+  // }
 }
 
 Comment.init({
