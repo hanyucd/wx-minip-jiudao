@@ -114,4 +114,16 @@ Page({
       },
     })
   },
+  onGetBookDetail() {
+    wx.request({
+      url: 'http://localhost:3000/v1/book/1120/detail',
+      method: 'GET',
+      header: {
+        Authorization: _encode()
+      },
+      success: res => {
+        console.log(res.data)
+      },
+    })
+  },
 })

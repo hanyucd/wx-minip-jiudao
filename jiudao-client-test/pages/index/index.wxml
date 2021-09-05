@@ -11,4 +11,6 @@
   <l-button type="default" shape="semicircle" size="long" bind:lintap="onGetClassicFavor">查询点赞</l-button>
   <view style="height: 40rpx;" />
   <l-button type="default" shape="semicircle" size="long" bind:lintap="onGetHotBookList">获取热门书籍</l-button>
+  <view style="height: 40rpx;" />
+  <l-button type="default" shape="semicircle" size="long" bind:lintap="onGetBookDetail">获取热门书籍</l-button>
 </view>
